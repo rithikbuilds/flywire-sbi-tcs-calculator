@@ -1,0 +1,506 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Flywire TCS Calculator</title>
+
+<style>
+:root{
+  --blue:#1473e6;
+  --navy:#12304f;
+  --bg:#f6f9fc;
+  --line:#dbe5ef;
+  --muted:#62758a;
+  --green:#14804a;
+  --red:#d64545;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:Inter,Arial,sans-serif;
+  background:var(--bg);
+  color:var(--navy);
+}
+
+.container{
+  max-width:1100px;
+  margin:40px auto;
+  padding:20px;
+}
+
+h1{
+  font-size:34px;
+  margin-bottom:5px;
+}
+
+.subtitle{
+  color:var(--muted);
+  margin-bottom:25px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+}
+
+.card{
+  background:white;
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:25px;
+  box-shadow:0 2px 10px rgba(18,48,79,.06);
+}
+
+label{
+  display:block;
+  font-weight:600;
+  font-size:14px;
+  margin:16px 0 7px;
+}
+
+input{
+  width:100%;
+  padding:13px;
+  border:1px solid #cbd8e5;
+  border-radius:8px;
+  font-size:16px;
+}
+
+button{
+  width:100%;
+  padding:14px;
+  margin-top:22px;
+  border:0;
+  border-radius:8px;
+  background:var(--blue);
+  color:white;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+button:hover{
+  opacity:.9;
+}
+
+.result{
+  background:linear-gradient(#fff,#f9fcff);
+}
+
+.tcs-box{
+  border:1px solid #bcd8f8;
+  border-radius:10px;
+  padding:22px;
+  margin-bottom:20px;
+}
+
+.tcs-label{
+  font-weight:600;
+}
+
+.tcs{
+  font-size:42px;
+  font-weight:800;
+  color:var(--blue);
+  margin:8px 0;
+}
+
+.row{
+  display:flex;
+  justify-content:space-between;
+  padding:12px 0;
+  border-bottom:1px solid var(--line);
+  font-size:14px;
+}
+
+.blue{color:var(--blue)}
+.green{color:var(--green)}
+.red{color:var(--red)}
+
+.note{
+  margin-top:20px;
+  padding:15px;
+  background:#eef6ff;
+  border-radius:8px;
+  color:#49627d;
+  font-size:13px;
+  line-height:1.5;
+}
+
+.error{
+  color:var(--red);
+  margin-top:10px;
+  display:none;
+}
+
+@media(max-width:800px){
+  .grid{
+    grid-template-columns:1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Flywire TCS Calculator</h1>
+
+<div class="subtitle">
+Estimate TCS using the SBI proportional allocation logic.
+</div>
+
+<div class="grid">
+
+<!-- INPUT SECTION -->
+
+<div class="card">
+
+<h2>Enter Details</h2>
+
+<label>Previous Remittances in FY</label>
+<input
+  id="previous"
+  type="number"
+  value="499763"
+>
+
+<label>Current Payment Amount</label>
+<input
+  id="current"
+  type="number"
+  value="1802351"
+>
+
+<label>Education Loan Component</label>
+<input
+  id="loan"
+  type="number"
+  value="1428953"
+>
+
+<label>Margin / Own Funds Component</label>
+<input
+  id="margin"
+  type="number"
+  value="373398"
+>
+
+<label>TCS-Free Threshold</label>
+<input
+  id="threshold"
+  type="number"
+  value="1000000"
+>
+
+<label>TCS Rate (%)</label>
+<input
+  id="rate"
+  type="number"
+  value="2"
+  step="0.01"
+>
+
+<div id="error" class="error"></div>
+
+<button onclick="calculate()">
+Calculate TCS
+</button>
+
+</div>
+
+
+<!-- RESULT SECTION -->
+
+<div class="card result">
+
+<h2>Estimated TCS</h2>
+
+<div class="tcs-box">
+
+<div class="tcs-label">
+Estimated TCS Payable
+</div>
+
+<div class="tcs" id="tcs">
+₹0
+</div>
+
+<div>
+TCS on taxable margin amount
+</div>
+
+</div>
+
+
+<div class="row">
+<span>FY TCS-Free Limit</span>
+<strong id="rThreshold">₹0</strong>
+</div>
+
+<div class="row">
+<span>Previous FY Remittances</span>
+<strong id="rPrevious">₹0</strong>
+</div>
+
+<div class="row">
+<span>Balance TCS-Free Limit</span>
+<strong id="rBalance">₹0</strong>
+</div>
+
+<div class="row">
+<span>Current Payment</span>
+<strong id="rCurrent">₹0</strong>
+</div>
+
+<div class="row">
+<span>Balance / Current Payment</span>
+<strong class="blue" id="rAllocation">
+0%
+</strong>
+</div>
+
+<div class="row">
+<span>Margin / Own Funds</span>
+<strong id="rMargin">₹0</strong>
+</div>
+
+<div class="row">
+<span class="green">
+TCS-Free Margin Portion
+</span>
+
+<strong class="green" id="rFree">
+₹0
+</strong>
+</div>
+
+<div class="row">
+<span class="red">
+Taxable Margin Portion
+</span>
+
+<strong class="red" id="rTaxable">
+₹0
+</strong>
+</div>
+
+<div class="row">
+<span>TCS Rate</span>
+<strong id="rRate">0%</strong>
+</div>
+
+<div class="row">
+<span>TCS Amount</span>
+<strong class="blue" id="rTcs">
+₹0
+</strong>
+</div>
+
+
+<div class="note">
+
+<strong>Calculation Logic</strong><br><br>
+
+Balance TCS-Free Limit =
+TCS-Free Threshold − Previous FY Remittances
+
+<br><br>
+
+Allocation % =
+Balance TCS-Free Limit ÷ Current Payment
+
+<br><br>
+
+TCS-Free Margin =
+Margin × Allocation %
+
+<br><br>
+
+Taxable Margin =
+Margin − TCS-Free Margin
+
+<br><br>
+
+TCS =
+Taxable Margin × TCS Rate
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<script>
+
+function formatINR(amount){
+
+  return new Intl.NumberFormat(
+    'en-IN',
+    {
+      style:'currency',
+      currency:'INR',
+      maximumFractionDigits:0
+    }
+  ).format(amount);
+
+}
+
+
+function calculate(){
+
+  const previous =
+    Number(document.getElementById('previous').value) || 0;
+
+  const current =
+    Number(document.getElementById('current').value) || 0;
+
+  const loan =
+    Number(document.getElementById('loan').value) || 0;
+
+  const margin =
+    Number(document.getElementById('margin').value) || 0;
+
+  const threshold =
+    Number(document.getElementById('threshold').value) || 0;
+
+  const rate =
+    Number(document.getElementById('rate').value) || 0;
+
+
+  const error =
+    document.getElementById('error');
+
+
+  /*
+    Validate payment split
+  */
+
+  if(Math.abs((loan + margin) - current) > 1){
+
+    error.style.display = 'block';
+
+    error.innerText =
+      'Loan + Margin must equal the Current Payment Amount.';
+
+    return;
+
+  }
+
+  error.style.display = 'none';
+
+
+  /*
+    Step 1
+    Calculate remaining TCS-free limit
+  */
+
+  const balance =
+    Math.max(0, threshold - previous);
+
+
+  /*
+    Step 2
+    Calculate proportional allocation
+  */
+
+  let allocation =
+    current > 0
+    ? balance / current
+    : 0;
+
+
+  /*
+    Allocation cannot exceed 100%
+  */
+
+  allocation =
+    Math.min(1, Math.max(0, allocation));
+
+
+  /*
+    Step 3
+    Calculate TCS-free margin
+  */
+
+  const freeMargin =
+    margin * allocation;
+
+
+  /*
+    Step 4
+    Calculate taxable margin
+  */
+
+  const taxableMargin =
+    Math.max(0, margin - freeMargin);
+
+
+  /*
+    Step 5
+    Calculate TCS
+  */
+
+  const tcs =
+    taxableMargin * (rate / 100);
+
+
+  /*
+    Display results
+  */
+
+  document.getElementById('tcs')
+    .innerText = formatINR(tcs);
+
+  document.getElementById('rThreshold')
+    .innerText = formatINR(threshold);
+
+  document.getElementById('rPrevious')
+    .innerText = formatINR(previous);
+
+  document.getElementById('rBalance')
+    .innerText = formatINR(balance);
+
+  document.getElementById('rCurrent')
+    .innerText = formatINR(current);
+
+  document.getElementById('rAllocation')
+    .innerText =
+      (allocation * 100).toFixed(2) + '%';
+
+  document.getElementById('rMargin')
+    .innerText = formatINR(margin);
+
+  document.getElementById('rFree')
+    .innerText = formatINR(freeMargin);
+
+  document.getElementById('rTaxable')
+    .innerText = formatINR(taxableMargin);
+
+  document.getElementById('rRate')
+    .innerText = rate + '%';
+
+  document.getElementById('rTcs')
+    .innerText = formatINR(tcs);
+
+}
+
+
+/*
+  Calculate automatically when page loads
+*/
+
+calculate();
+
+</script>
+
+</body>
+</html>
