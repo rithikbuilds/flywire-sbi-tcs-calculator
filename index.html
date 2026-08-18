@@ -1,504 +1,1175 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Flywire TCS Calculator</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Flywire SBI TCS Calculator</title>
 
 <style>
-:root{
-  --blue:#1473e6;
-  --navy:#12304f;
-  --bg:#f6f9fc;
-  --line:#dbe5ef;
-  --muted:#62758a;
-  --green:#14804a;
-  --red:#d64545;
+
+:root {
+    --blue: #0875d1;
+    --blue-dark: #075fb5;
+    --navy: #12304f;
+    --text: #102a43;
+    --muted: #62758a;
+    --background: #f7faff;
+    --border: #d9e5f0;
+    --green: #0b874b;
+    --red: #e7473c;
 }
 
-*{box-sizing:border-box}
-
-body{
-  margin:0;
-  font-family:Inter,Arial,sans-serif;
-  background:var(--bg);
-  color:var(--navy);
+* {
+    box-sizing: border-box;
 }
 
-.container{
-  max-width:1100px;
-  margin:40px auto;
-  padding:20px;
+body {
+    margin: 0;
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    background: var(--background);
+    color: var(--text);
 }
 
-h1{
-  font-size:34px;
-  margin-bottom:5px;
+.app {
+    min-height: 100vh;
+    display: flex;
 }
 
-.subtitle{
-  color:var(--muted);
-  margin-bottom:25px;
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar {
+    width: 195px;
+    min-height: 100vh;
+    background: linear-gradient(180deg, #0875d1, #0665bb);
+    color: white;
+    padding: 30px 15px;
+    display: flex;
+    flex-direction: column;
 }
 
-.grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:20px;
+.logo {
+    font-family: Arial, sans-serif;
+    font-size: 35px;
+    font-weight: 700;
+    font-style: italic;
+    letter-spacing: -2px;
+    margin: 0 13px 45px;
 }
 
-.card{
-  background:white;
-  border:1px solid var(--line);
-  border-radius:14px;
-  padding:25px;
-  box-shadow:0 2px 10px rgba(18,48,79,.06);
+.tool {
+    padding: 16px;
+    border-radius: 9px;
+    background: rgba(255,255,255,.14);
+    font-size: 14px;
+    font-weight: 600;
 }
 
-label{
-  display:block;
-  font-weight:600;
-  font-size:14px;
-  margin:16px 0 7px;
+.support {
+    margin-top: auto;
+    background: rgba(255,255,255,.12);
+    border-radius: 9px;
+    padding: 16px;
+    font-size: 12px;
+    line-height: 1.5;
 }
 
-input{
-  width:100%;
-  padding:13px;
-  border:1px solid #cbd8e5;
-  border-radius:8px;
-  font-size:16px;
+/* =========================
+   MAIN
+========================= */
+
+.main {
+    flex: 1;
+    padding: 35px;
 }
 
-button{
-  width:100%;
-  padding:14px;
-  margin-top:22px;
-  border:0;
-  border-radius:8px;
-  background:var(--blue);
-  color:white;
-  font-size:16px;
-  font-weight:bold;
-  cursor:pointer;
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 25px;
 }
 
-button:hover{
-  opacity:.9;
+.header h1 {
+    margin: 0;
+    font-size: 34px;
+    color: var(--navy);
 }
 
-.result{
-  background:linear-gradient(#fff,#f9fcff);
+.subtitle {
+    color: var(--muted);
+    margin-top: 7px;
+    font-size: 14px;
 }
 
-.tcs-box{
-  border:1px solid #bcd8f8;
-  border-radius:10px;
-  padding:22px;
-  margin-bottom:20px;
+.estimation {
+    color: var(--blue);
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 8px;
 }
 
-.tcs-label{
-  font-weight:600;
+/* =========================
+   LAYOUT
+========================= */
+
+.grid {
+    display: grid;
+    grid-template-columns: minmax(430px, 1fr) minmax(480px, 1fr);
+    gap: 22px;
 }
 
-.tcs{
-  font-size:42px;
-  font-weight:800;
-  color:var(--blue);
-  margin:8px 0;
+.card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 13px;
+    padding: 25px;
+    box-shadow: 0 2px 12px rgba(20,60,100,.06);
 }
 
-.row{
-  display:flex;
-  justify-content:space-between;
-  padding:12px 0;
-  border-bottom:1px solid var(--line);
-  font-size:14px;
+.section-title {
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 22px;
 }
 
-.blue{color:var(--blue)}
-.green{color:var(--green)}
-.red{color:var(--red)}
-
-.note{
-  margin-top:20px;
-  padding:15px;
-  background:#eef6ff;
-  border-radius:8px;
-  color:#49627d;
-  font-size:13px;
-  line-height:1.5;
+.number {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--blue);
+    color: white;
+    display: inline-grid;
+    place-items: center;
+    font-size: 14px;
+    margin-right: 10px;
 }
 
-.error{
-  color:var(--red);
-  margin-top:10px;
-  display:none;
+/* =========================
+   INPUTS
+========================= */
+
+.field {
+    margin-bottom: 18px;
 }
 
-@media(max-width:800px){
-  .grid{
-    grid-template-columns:1fr;
-  }
+label {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 7px;
 }
+
+.hint {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 6px;
+}
+
+input {
+    width: 100%;
+    height: 45px;
+    border: 1px solid #cfddea;
+    border-radius: 8px;
+    padding: 0 14px;
+    font-size: 15px;
+    color: var(--navy);
+    outline: none;
+}
+
+input:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(8,117,209,.08);
+}
+
+input[readonly] {
+    background: #f3f7fb;
+    color: #526b86;
+}
+
+.fixed-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.rate-badge {
+    display: inline-block;
+    margin-top: 7px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    background: #eef6ff;
+    color: var(--blue);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.calculate {
+    width: 100%;
+    height: 45px;
+    border: none;
+    border-radius: 7px;
+    background: var(--blue);
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+.calculate:hover {
+    background: var(--blue-dark);
+}
+
+/* =========================
+   RESULT
+========================= */
+
+.result-box {
+    border: 1px solid #bedcff;
+    border-radius: 10px;
+    padding: 25px;
+    margin-bottom: 20px;
+}
+
+.result-label {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.amount {
+    color: var(--blue);
+    font-size: 42px;
+    font-weight: 800;
+    margin: 9px 0;
+    letter-spacing: -1px;
+}
+
+.rate-text {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.summary-title {
+    color: var(--blue);
+    font-weight: 700;
+    margin: 20px 0 5px;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    min-height: 45px;
+    border-bottom: 1px solid #e2e9f0;
+    font-size: 14px;
+}
+
+.row strong {
+    text-align: right;
+}
+
+.blue {
+    color: var(--blue);
+}
+
+.green {
+    color: var(--green);
+}
+
+.red {
+    color: var(--red);
+}
+
+/* =========================
+   NOTES
+========================= */
+
+.logic {
+    margin-top: 20px;
+    background: #eef6ff;
+    border-radius: 8px;
+    padding: 16px;
+    color: #49627d;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.logic strong {
+    color: var(--blue);
+}
+
+.disclaimer {
+    margin-top: 18px;
+    background: #fff8e8;
+    border: 1px solid #f0dfb4;
+    border-radius: 8px;
+    padding: 14px;
+    font-size: 12px;
+    color: #67572e;
+    line-height: 1.5;
+}
+
+.error {
+    display: none;
+    margin-top: 7px;
+    color: var(--red);
+    font-size: 12px;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 900px) {
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+@media (max-width: 700px) {
+
+    .sidebar {
+        display: none;
+    }
+
+    .main {
+        padding: 20px;
+    }
+
+    .header {
+        display: block;
+    }
+
+    .estimation {
+        margin-top: 12px;
+    }
+
+    .fixed-row {
+        grid-template-columns: 1fr;
+    }
+
+}
+
 </style>
 </head>
 
+
 <body>
 
-<div class="container">
+<div class="app">
 
-<h1>Flywire TCS Calculator</h1>
+<!-- SIDEBAR -->
 
-<div class="subtitle">
-Estimate TCS using the SBI proportional allocation logic.
-</div>
+<aside class="sidebar">
+
+    <div class="logo">
+        flywire
+    </div>
+
+    <div class="tool">
+        ▣ &nbsp; Tools
+    </div>
+
+    <div class="support">
+        <strong>Internal Tool</strong>
+        <br><br>
+        SBI TCS estimation reference for the team.
+    </div>
+
+</aside>
+
+
+<!-- MAIN -->
+
+<main class="main">
+
+<header class="header">
+
+    <div>
+
+        <h1>TCS Calculator</h1>
+
+        <div class="subtitle">
+            Estimate TCS on SBI overseas education payments using proportional allocation logic.
+        </div>
+
+    </div>
+
+    <div class="estimation">
+        ⓘ Estimation only
+    </div>
+
+</header>
+
 
 <div class="grid">
 
-<!-- INPUT SECTION -->
 
-<div class="card">
+<!-- =========================
+     INPUT CARD
+========================= -->
 
-<h2>Enter Details</h2>
+<section class="card">
 
-<label>Previous Remittances in FY</label>
-<input
-  id="previous"
-  type="number"
-  value="0"
+<div class="section-title">
+
+    <span class="number">1</span>
+
+    Enter Details
+
+</div>
+
+
+<div class="fixed-row">
+
+    <div class="field">
+
+        <label>
+            Financial Year
+        </label>
+
+        <input
+            value="FY 2026–27"
+            readonly
+        >
+
+    </div>
+
+
+    <div class="field">
+
+        <label>
+            Applicable TCS Rate
+        </label>
+
+        <input
+            value="2%"
+            readonly
+        >
+
+    </div>
+
+</div>
+
+
+<div class="field">
+
+    <label>
+        TCS-Free Threshold
+    </label>
+
+    <input
+        value="₹10,00,000"
+        readonly
+    >
+
+    <div class="hint">
+        Fixed threshold for this calculator
+    </div>
+
+</div>
+
+
+<div class="field">
+
+    <label>
+        Previous Remittances in this FY
+    </label>
+
+    <input
+        id="previous"
+        type="number"
+        min="0"
+        value="0"
+        placeholder="0"
+    >
+
+    <div class="hint">
+        Total amount already remitted earlier in FY 2026–27
+    </div>
+
+</div>
+
+
+<div class="field">
+
+    <label>
+        Current Payment Amount
+    </label>
+
+    <input
+        id="current"
+        type="number"
+        min="0"
+        value="0"
+        placeholder="0"
+    >
+
+</div>
+
+
+<div class="field">
+
+    <label>
+        Education Loan Component
+    </label>
+
+    <input
+        id="loan"
+        type="number"
+        min="0"
+        value="0"
+        placeholder="0"
+    >
+
+</div>
+
+
+<div class="field">
+
+    <label>
+        Margin / Own Funds Component
+    </label>
+
+    <input
+        id="margin"
+        value="₹0"
+        readonly
+    >
+
+    <div class="hint">
+        Automatically calculated as Current Payment − Loan Component
+    </div>
+
+    <div
+        id="error"
+        class="error"
+    >
+        Loan amount cannot be higher than the current payment.
+    </div>
+
+</div>
+
+
+<button
+    class="calculate"
+    onclick="calculateTCS()"
 >
-
-<label>Current Payment Amount</label>
-<input
-  id="current"
-  type="number"
-  value="0"
->
-
-<label>Education Loan Component</label>
-<input
-  id="loan"
-  type="number"
-  value="0"
->
-
-<label>Margin / Own Funds Component</label>
-<input
-  id="margin"
-  type="number"
-  value="0"
->
-
-<label>TCS-Free Threshold</label>
-<input
-  id="threshold"
-  type="number"
-  value="0"
->
-
-<label>TCS Rate (%)</label>
-<input
-  id="rate"
-  type="number"
-  value="2"
-  step="0.01"
->
-
-<div id="error" class="error"></div>
-
-<button onclick="calculate()">
-Calculate TCS
+    Calculate TCS
 </button>
 
-</div>
 
+<div class="logic">
 
-<!-- RESULT SECTION -->
-
-<div class="card result">
-
-<h2>Estimated TCS</h2>
-
-<div class="tcs-box">
-
-<div class="tcs-label">
-Estimated TCS Payable
-</div>
-
-<div class="tcs" id="tcs">
-₹0
-</div>
-
-<div>
-TCS on taxable margin amount
-</div>
-
-</div>
-
-
-<div class="row">
-<span>FY TCS-Free Limit</span>
-<strong id="rThreshold">₹0</strong>
-</div>
-
-<div class="row">
-<span>Previous FY Remittances</span>
-<strong id="rPrevious">₹0</strong>
-</div>
-
-<div class="row">
-<span>Balance TCS-Free Limit</span>
-<strong id="rBalance">₹0</strong>
-</div>
-
-<div class="row">
-<span>Current Payment</span>
-<strong id="rCurrent">₹0</strong>
-</div>
-
-<div class="row">
-<span>Balance / Current Payment</span>
-<strong class="blue" id="rAllocation">
-0%
-</strong>
-</div>
-
-<div class="row">
-<span>Margin / Own Funds</span>
-<strong id="rMargin">₹0</strong>
-</div>
-
-<div class="row">
-<span class="green">
-TCS-Free Margin Portion
-</span>
-
-<strong class="green" id="rFree">
-₹0
-</strong>
-</div>
-
-<div class="row">
-<span class="red">
-Taxable Margin Portion
-</span>
-
-<strong class="red" id="rTaxable">
-₹0
-</strong>
-</div>
-
-<div class="row">
-<span>TCS Rate</span>
-<strong id="rRate">0%</strong>
-</div>
-
-<div class="row">
-<span>TCS Amount</span>
-<strong class="blue" id="rTcs">
-₹0
-</strong>
-</div>
-
-
-<div class="note">
-
-<strong>Calculation Logic</strong><br><br>
-
-Balance TCS-Free Limit =
-TCS-Free Threshold − Previous FY Remittances
+<strong>How the calculation works</strong>
 
 <br><br>
+
+Balance Threshold =
+₹10,00,000 − Previous Remittances
+
+<br>
 
 Allocation % =
-Balance TCS-Free Limit ÷ Current Payment
+Balance Threshold ÷ Current Payment
 
-<br><br>
+<br>
 
 TCS-Free Margin =
 Margin × Allocation %
 
-<br><br>
+<br>
 
 Taxable Margin =
 Margin − TCS-Free Margin
 
-<br><br>
+<br>
 
-TCS =
-Taxable Margin × TCS Rate
-
-</div>
+Estimated TCS =
+Taxable Margin × 2%
 
 </div>
 
+</section>
+
+
+
+<!-- =========================
+     RESULT CARD
+========================= -->
+
+<section class="card">
+
+<div class="section-title">
+
+    <span class="number">2</span>
+
+    Estimated TCS
+
 </div>
+
+
+<div class="result-box">
+
+    <div class="result-label">
+        Estimated TCS Payable
+    </div>
+
+    <div
+        class="amount"
+        id="mainTCS"
+    >
+        ₹0
+    </div>
+
+    <div class="rate-text">
+        @ 2% on taxable margin amount
+    </div>
+
+</div>
+
+
+<div class="summary-title">
+    Calculation Summary
+</div>
+
+
+<div class="row">
+
+    <span>
+        Financial Year
+    </span>
+
+    <strong>
+        FY 2026–27
+    </strong>
+
+</div>
+
+
+<div class="row">
+
+    <span>
+        TCS Rate
+    </span>
+
+    <strong>
+        2%
+    </strong>
+
+</div>
+
+
+<div class="row">
+
+    <span>
+        TCS-Free Threshold
+    </span>
+
+    <strong>
+        ₹10,00,000
+    </strong>
+
+</div>
+
+
+<div class="row">
+
+    <span>
+        Previous Remittances
+    </span>
+
+    <strong id="resultPrevious">
+        ₹0
+    </strong>
+
+</div>
+
+
+<div class="row">
+
+    <span>
+        Balance TCS-Free Threshold
+    </span>
+
+    <strong id="resultBalance">
+        ₹10,00,000
+    </strong>
+
+</div>
+
+
+<div class="row">
+
+    <span>
+        Current Payment
+    </span>
+
+    <strong id="resultCurrent">
+        ₹0
+    </strong>
+
+</div>
+
+
+<div class="row">
+
+    <span>
+        Education Loan Component
+    </span>
+
+    <strong id="resultLoan">
+        ₹0
+    </strong>
+
+</div>
+
+
+<div class="row">
+
+    <span>
+        Margin / Own Funds
+    </span>
+
+    <strong id="resultMargin">
+        ₹0
+    </strong>
+
+</div>
+
+
+<div class="row blue">
+
+    <span>
+        Threshold Allocation %
+    </span>
+
+    <strong id="resultAllocation">
+        0.00%
+    </strong>
+
+</div>
+
+
+<div class="row green">
+
+    <span>
+        TCS-Free Margin Portion
+    </span>
+
+    <strong id="resultFree">
+        ₹0
+    </strong>
+
+</div>
+
+
+<div class="row red">
+
+    <span>
+        Taxable Margin Portion
+    </span>
+
+    <strong id="resultTaxable">
+        ₹0
+    </strong>
+
+</div>
+
+
+<div
+    class="row blue"
+    style="border-bottom:none"
+>
+
+    <strong>
+        Estimated TCS
+    </strong>
+
+    <strong id="resultTCS">
+        ₹0
+    </strong>
+
+</div>
+
+
+<div class="disclaimer">
+
+<strong>Note:</strong>
+
+This calculator is for estimation/reference only.
+The final TCS may vary depending on the individual case and SBI's actual calculation.
+Use this as a benchmark for the expected TCS amount.
+
+</div>
+
+</section>
+
+</div>
+
+
+<footer class="footer">
+
+    <span>
+        SBI TCS Estimation Tool
+    </span>
+
+    <span id="dateTime"></span>
+
+</footer>
+
+
+</main>
 
 </div>
 
 
 <script>
 
-function formatINR(amount){
+/* =========================================
+   FIXED FY 2026-27 SETTINGS
+========================================= */
 
-  return new Intl.NumberFormat(
-    'en-IN',
-    {
-      style:'currency',
-      currency:'INR',
-      maximumFractionDigits:0
+const TCS_THRESHOLD = 1000000;
+
+const TCS_RATE = 2;
+
+
+/* =========================================
+   INR FORMAT
+========================================= */
+
+function formatINR(amount) {
+
+    amount = Math.max(0, amount);
+
+    return "₹" +
+        Math.round(amount)
+        .toLocaleString("en-IN");
+
+}
+
+
+/* =========================================
+   READ INPUT
+========================================= */
+
+function getValue(id) {
+
+    return Number(
+        document.getElementById(id).value
+    ) || 0;
+
+}
+
+
+/* =========================================
+   CALCULATE
+========================================= */
+
+function calculateTCS() {
+
+    const previous =
+        getValue("previous");
+
+    const current =
+        getValue("current");
+
+    const loan =
+        getValue("loan");
+
+
+    /* -------------------------
+       AUTO CALCULATE MARGIN
+    ------------------------- */
+
+    let margin = current - loan;
+
+
+    const error =
+        document.getElementById("error");
+
+
+    if (loan > current) {
+
+        margin = 0;
+
+        error.style.display =
+            "block";
+
+    } else {
+
+        error.style.display =
+            "none";
+
     }
-  ).format(amount);
+
+
+    document
+        .getElementById("margin")
+        .value =
+        formatINR(margin);
+
+
+
+    /* -------------------------
+       BALANCE THRESHOLD
+    ------------------------- */
+
+    const balanceThreshold =
+        Math.max(
+            0,
+            TCS_THRESHOLD - previous
+        );
+
+
+
+    /* -------------------------
+       SBI PROPORTIONAL
+       ALLOCATION
+    ------------------------- */
+
+    let allocation = 0;
+
+
+    if (current > 0) {
+
+        allocation =
+            balanceThreshold /
+            current;
+
+    }
+
+
+    /*
+      Allocation cannot exceed 100%
+    */
+
+    allocation =
+        Math.min(
+            1,
+            Math.max(0, allocation)
+        );
+
+
+
+    /* -------------------------
+       TCS-FREE MARGIN
+    ------------------------- */
+
+    const tcsFreeMargin =
+        margin *
+        allocation;
+
+
+
+    /* -------------------------
+       TAXABLE MARGIN
+    ------------------------- */
+
+    const taxableMargin =
+        Math.max(
+            0,
+            margin -
+            tcsFreeMargin
+        );
+
+
+
+    /* -------------------------
+       TCS @ 2%
+    ------------------------- */
+
+    const tcs =
+        taxableMargin *
+        (TCS_RATE / 100);
+
+
+
+    /* =================================
+       DISPLAY RESULTS
+    ================================= */
+
+
+    document
+        .getElementById("mainTCS")
+        .textContent =
+        formatINR(tcs);
+
+
+    document
+        .getElementById("resultPrevious")
+        .textContent =
+        formatINR(previous);
+
+
+    document
+        .getElementById("resultBalance")
+        .textContent =
+        formatINR(balanceThreshold);
+
+
+    document
+        .getElementById("resultCurrent")
+        .textContent =
+        formatINR(current);
+
+
+    document
+        .getElementById("resultLoan")
+        .textContent =
+        formatINR(loan);
+
+
+    document
+        .getElementById("resultMargin")
+        .textContent =
+        formatINR(margin);
+
+
+    document
+        .getElementById("resultAllocation")
+        .textContent =
+        (allocation * 100)
+        .toFixed(2) +
+        "%";
+
+
+    document
+        .getElementById("resultFree")
+        .textContent =
+        formatINR(
+            tcsFreeMargin
+        );
+
+
+    document
+        .getElementById("resultTaxable")
+        .textContent =
+        formatINR(
+            taxableMargin
+        );
+
+
+    document
+        .getElementById("resultTCS")
+        .textContent =
+        formatINR(tcs);
 
 }
 
 
-function calculate(){
+/* =========================================
+   AUTO CALCULATE WHILE ENTERING DATA
+========================================= */
 
-  const previous =
-    Number(document.getElementById('previous').value) || 0;
-
-  const current =
-    Number(document.getElementById('current').value) || 0;
-
-  const loan =
-    Number(document.getElementById('loan').value) || 0;
-
-  const margin =
-    Number(document.getElementById('margin').value) || 0;
-
-  const threshold =
-    Number(document.getElementById('threshold').value) || 0;
-
-  const rate =
-    Number(document.getElementById('rate').value) || 0;
+document
+    .getElementById("previous")
+    .addEventListener(
+        "input",
+        calculateTCS
+    );
 
 
-  const error =
-    document.getElementById('error');
+document
+    .getElementById("current")
+    .addEventListener(
+        "input",
+        calculateTCS
+    );
 
 
-  /*
-    Validate payment split
-  */
-
-  if(Math.abs((loan + margin) - current) > 1){
-
-    error.style.display = 'block';
-
-    error.innerText =
-      'Loan + Margin must equal the Current Payment Amount.';
-
-    return;
-
-  }
-
-  error.style.display = 'none';
+document
+    .getElementById("loan")
+    .addEventListener(
+        "input",
+        calculateTCS
+    );
 
 
-  /*
-    Step 1
-    Calculate remaining TCS-free limit
-  */
 
-  const balance =
-    Math.max(0, threshold - previous);
+/* =========================================
+   LIVE INDIA DATE + TIME
+========================================= */
 
+function updateDateTime() {
 
-  /*
-    Step 2
-    Calculate proportional allocation
-  */
-
-  let allocation =
-    current > 0
-    ? balance / current
-    : 0;
+    const now =
+        new Date();
 
 
-  /*
-    Allocation cannot exceed 100%
-  */
-
-  allocation =
-    Math.min(1, Math.max(0, allocation));
-
-
-  /*
-    Step 3
-    Calculate TCS-free margin
-  */
-
-  const freeMargin =
-    margin * allocation;
+    const date =
+        now.toLocaleDateString(
+            "en-IN",
+            {
+                day: "2-digit",
+                month: "short",
+                year: "numeric",
+                timeZone:
+                    "Asia/Kolkata"
+            }
+        );
 
 
-  /*
-    Step 4
-    Calculate taxable margin
-  */
-
-  const taxableMargin =
-    Math.max(0, margin - freeMargin);
-
-
-  /*
-    Step 5
-    Calculate TCS
-  */
-
-  const tcs =
-    taxableMargin * (rate / 100);
+    const time =
+        now.toLocaleTimeString(
+            "en-IN",
+            {
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit",
+                hour12: true,
+                timeZone:
+                    "Asia/Kolkata"
+            }
+        );
 
 
-  /*
-    Display results
-  */
-
-  document.getElementById('tcs')
-    .innerText = formatINR(tcs);
-
-  document.getElementById('rThreshold')
-    .innerText = formatINR(threshold);
-
-  document.getElementById('rPrevious')
-    .innerText = formatINR(previous);
-
-  document.getElementById('rBalance')
-    .innerText = formatINR(balance);
-
-  document.getElementById('rCurrent')
-    .innerText = formatINR(current);
-
-  document.getElementById('rAllocation')
-    .innerText =
-      (allocation * 100).toFixed(2) + '%';
-
-  document.getElementById('rMargin')
-    .innerText = formatINR(margin);
-
-  document.getElementById('rFree')
-    .innerText = formatINR(freeMargin);
-
-  document.getElementById('rTaxable')
-    .innerText = formatINR(taxableMargin);
-
-  document.getElementById('rRate')
-    .innerText = rate + '%';
-
-  document.getElementById('rTcs')
-    .innerText = formatINR(tcs);
+    document
+        .getElementById("dateTime")
+        .textContent =
+        date +
+        " | " +
+        time +
+        " IST";
 
 }
 
 
-/*
-  Calculate automatically when page loads
-*/
+/* =========================================
+   START PAGE AT ZERO
+========================================= */
 
-calculate();
+calculateTCS();
+
+updateDateTime();
+
+setInterval(
+    updateDateTime,
+    1000
+);
 
 </script>
 
