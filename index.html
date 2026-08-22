@@ -2,25 +2,27 @@
 <html lang="en">
 
 <head>
-
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Flywire SBI TCS Calculator</title>
+<title>SBI TCS Calculator</title>
 
 <style>
 
 :root {
     --blue: #0875d1;
-    --blue-dark: #075fb5;
+    --blue-dark: #0665bb;
     --navy: #12304f;
     --text: #102a43;
     --muted: #62758a;
     --background: #f7faff;
     --border: #d9e5f0;
     --green: #0b874b;
+    --green-bg: #ecf9f1;
     --red: #e7473c;
+    --red-bg: #fff1f0;
+    --yellow-bg: #fff8e8;
+    --yellow-border: #f0dfb4;
 }
 
 * {
@@ -29,7 +31,13 @@
 
 body {
     margin: 0;
-    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        sans-serif;
     background: var(--background);
     color: var(--text);
 }
@@ -45,62 +53,67 @@ body {
 ========================= */
 
 .sidebar {
-
     width: 195px;
     min-height: 100vh;
-
-    background: linear-gradient(
-        180deg,
-        #0875d1,
-        #0665bb
-    );
+    background:
+        linear-gradient(
+            180deg,
+            #0875d1,
+            #0665bb
+        );
 
     color: white;
 
-    padding: 30px 15px;
+    padding:
+        30px 15px;
 
     display: flex;
     flex-direction: column;
 }
 
 
-/* REAL LOGO */
-
 .logo {
-    margin: 0 12px 45px;
+    margin:
+        0 12px 45px;
 }
 
+
 .logo img {
-
     width: 135px;
-
     max-width: 100%;
-
     height: auto;
-
     display: block;
 }
 
 
 .tool {
-
     padding: 16px;
 
     border-radius: 9px;
 
-    background: rgba(255,255,255,.14);
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            .14
+        );
 
     font-size: 14px;
-
     font-weight: 600;
 }
 
 
 .support {
-
     margin-top: auto;
 
-    background: rgba(255,255,255,.12);
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            .12
+        );
 
     border-radius: 9px;
 
@@ -117,27 +130,25 @@ body {
 ========================= */
 
 .main {
-
     flex: 1;
-
     padding: 35px;
 }
 
 
 .header {
-
     display: flex;
 
-    justify-content: space-between;
+    justify-content:
+        space-between;
 
-    align-items: flex-start;
+    align-items:
+        flex-start;
 
     margin-bottom: 25px;
 }
 
 
 .header h1 {
-
     margin: 0;
 
     font-size: 34px;
@@ -147,7 +158,6 @@ body {
 
 
 .subtitle {
-
     color: var(--muted);
 
     margin-top: 7px;
@@ -157,7 +167,6 @@ body {
 
 
 .estimation {
-
     color: var(--blue);
 
     font-size: 14px;
@@ -173,7 +182,6 @@ body {
 ========================= */
 
 .grid {
-
     display: grid;
 
     grid-template-columns:
@@ -185,10 +193,11 @@ body {
 
 
 .card {
-
     background: white;
 
-    border: 1px solid var(--border);
+    border:
+        1px solid
+        var(--border);
 
     border-radius: 13px;
 
@@ -196,12 +205,16 @@ body {
 
     box-shadow:
         0 2px 12px
-        rgba(20,60,100,.06);
+        rgba(
+            20,
+            60,
+            100,
+            .06
+        );
 }
 
 
 .section-title {
-
     display: flex;
 
     align-items: center;
@@ -215,18 +228,18 @@ body {
 
 
 .number {
-
     width: 30px;
-
     height: 30px;
 
     border-radius: 50%;
 
-    background: var(--blue);
+    background:
+        var(--blue);
 
     color: white;
 
-    display: inline-grid;
+    display:
+        inline-grid;
 
     place-items: center;
 
@@ -241,13 +254,11 @@ body {
 ========================= */
 
 .field {
-
     margin-bottom: 18px;
 }
 
 
 label {
-
     display: block;
 
     font-size: 13px;
@@ -259,55 +270,89 @@ label {
 
 
 .hint {
-
     font-size: 12px;
 
-    color: var(--muted);
+    color:
+        var(--muted);
 
     margin-top: 6px;
 }
 
 
-input {
+.input-wrap {
+    position: relative;
+}
 
+
+.input-wrap span {
+    position: absolute;
+
+    right: 14px;
+
+    top: 50%;
+
+    transform:
+        translateY(-50%);
+
+    color:
+        var(--muted);
+}
+
+
+input {
     width: 100%;
 
     height: 45px;
 
-    border: 1px solid #cfddea;
+    border:
+        1px solid
+        #cfddea;
 
     border-radius: 8px;
 
-    padding: 0 14px;
+    padding:
+        0 42px 0 14px;
 
     font-size: 15px;
 
-    color: var(--navy);
+    color:
+        var(--navy);
 
     outline: none;
+
+    transition:
+        .15s ease;
 }
 
 
 input:focus {
-
-    border-color: var(--blue);
+    border-color:
+        var(--blue);
 
     box-shadow:
         0 0 0 3px
-        rgba(8,117,209,.08);
+        rgba(
+            8,
+            117,
+            209,
+            .08
+        );
 }
 
 
 input[readonly] {
+    background:
+        #f3f7fb;
 
-    background: #f3f7fb;
+    color:
+        #526b86;
 
-    color: #526b86;
+    cursor:
+        default;
 }
 
 
 .fixed-row {
-
     display: grid;
 
     grid-template-columns:
@@ -317,145 +362,122 @@ input[readonly] {
 }
 
 
-.calculate {
+/* =========================
+   VALIDATION
+========================= */
 
-    width: 100%;
+.validation {
+    display: none;
 
+    margin-top: 8px;
+
+    padding:
+        10px 12px;
+
+    background:
+        var(--red-bg);
+
+    border:
+        1px solid
+        #f5c8c5;
+
+    border-radius: 7px;
+
+    color:
+        var(--red);
+
+    font-size: 12px;
+
+    line-height: 1.4;
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+.actions {
+    display: grid;
+
+    grid-template-columns:
+        1fr 120px;
+
+    gap: 10px;
+
+    margin-top: 5px;
+}
+
+
+.primary-button {
     height: 45px;
 
     border: none;
 
     border-radius: 7px;
 
-    background: var(--blue);
+    background:
+        var(--blue);
 
     color: white;
 
-    font-size: 16px;
+    font-size: 15px;
 
     font-weight: 700;
 
     cursor: pointer;
-
-    margin-top: 5px;
 }
 
 
-.calculate:hover {
-
-    background: var(--blue-dark);
+.primary-button:hover {
+    background:
+        var(--blue-dark);
 }
 
 
-/* =========================
-   RESULT
-========================= */
+.secondary-button {
+    height: 45px;
 
-.result-box {
+    border:
+        1px solid
+        #cfddea;
 
-    border: 1px solid #bedcff;
+    border-radius: 7px;
 
-    border-radius: 10px;
+    background: white;
 
-    padding: 25px;
-
-    margin-bottom: 20px;
-}
-
-
-.result-label {
-
-    font-size: 16px;
-
-    font-weight: 700;
-}
-
-
-.amount {
-
-    color: var(--blue);
-
-    font-size: 42px;
-
-    font-weight: 800;
-
-    margin: 9px 0;
-
-    letter-spacing: -1px;
-}
-
-
-.rate-text {
+    color:
+        var(--navy);
 
     font-size: 14px;
 
     font-weight: 600;
+
+    cursor: pointer;
 }
 
 
-.summary-title {
-
-    color: var(--blue);
-
-    font-weight: 700;
-
-    margin: 20px 0 5px;
-}
-
-
-.row {
-
-    display: flex;
-
-    justify-content: space-between;
-
-    align-items: center;
-
-    gap: 20px;
-
-    min-height: 45px;
-
-    border-bottom:
-        1px solid #e2e9f0;
-
-    font-size: 14px;
-}
-
-
-.row strong {
-
-    text-align: right;
-}
-
-
-.blue {
-    color: var(--blue);
-}
-
-.green {
-    color: var(--green);
-}
-
-.red {
-    color: var(--red);
+.secondary-button:hover {
+    background:
+        #f3f7fb;
 }
 
 
 /* =========================
-   INFORMATION BOX
+   LOGIC BOX
 ========================= */
 
 .logic {
-
     margin-top: 20px;
 
-    background: #eef6ff;
+    background:
+        #eef6ff;
 
     border-radius: 8px;
 
     padding: 16px;
 
-    color: #49627d;
+    color:
+        #49627d;
 
     font-size: 12px;
 
@@ -464,19 +486,185 @@ input[readonly] {
 
 
 .logic strong {
-
-    color: var(--blue);
+    color:
+        var(--blue);
 }
 
 
-.disclaimer {
+/* =========================
+   RESULT
+========================= */
+
+.result-box {
+    border:
+        1px solid
+        #bedcff;
+
+    border-radius: 10px;
+
+    padding: 25px;
+
+    margin-bottom: 20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #f8fbff
+        );
+}
+
+
+.result-label {
+    font-size: 16px;
+
+    font-weight: 700;
+}
+
+
+.amount {
+    color:
+        var(--blue);
+
+    font-size: 42px;
+
+    font-weight: 800;
+
+    margin:
+        9px 0;
+
+    letter-spacing:
+        -1px;
+}
+
+
+.rate-text {
+    font-size: 14px;
+
+    font-weight: 600;
+}
+
+
+.summary-title {
+    color:
+        var(--blue);
+
+    font-weight: 700;
+
+    margin:
+        20px 0 5px;
+}
+
+
+.row {
+    display: flex;
+
+    justify-content:
+        space-between;
+
+    align-items: center;
+
+    gap: 20px;
+
+    min-height: 45px;
+
+    border-bottom:
+        1px solid
+        #e2e9f0;
+
+    font-size: 14px;
+}
+
+
+.row strong {
+    text-align: right;
+}
+
+
+.blue {
+    color:
+        var(--blue);
+}
+
+
+.green {
+    color:
+        var(--green);
+}
+
+
+.red {
+    color:
+        var(--red);
+}
+
+
+/* =========================
+   COPY BUTTON
+========================= */
+
+.copy-button {
+    width: 100%;
+
+    height: 43px;
 
     margin-top: 18px;
 
-    background: #fff8e8;
+    border:
+        1px solid
+        #bedcff;
+
+    border-radius: 7px;
+
+    background:
+        #eef6ff;
+
+    color:
+        var(--blue);
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+
+.copy-button:hover {
+    background:
+        #e3f1ff;
+}
+
+
+.copy-success {
+    display: none;
+
+    margin-top: 8px;
+
+    color:
+        var(--green);
+
+    font-size: 12px;
+
+    text-align: center;
+
+    font-weight: 600;
+}
+
+
+/* =========================
+   DISCLAIMER
+========================= */
+
+.disclaimer {
+    margin-top: 18px;
+
+    background:
+        var(--yellow-bg);
 
     border:
-        1px solid #f0dfb4;
+        1px solid
+        var(--yellow-border);
 
     border-radius: 8px;
 
@@ -484,21 +672,10 @@ input[readonly] {
 
     font-size: 12px;
 
-    color: #67572e;
+    color:
+        #67572e;
 
-    line-height: 1.5;
-}
-
-
-.error {
-
-    display: none;
-
-    margin-top: 7px;
-
-    color: var(--red);
-
-    font-size: 12px;
+    line-height: 1.55;
 }
 
 
@@ -507,19 +684,21 @@ input[readonly] {
 ========================= */
 
 .footer {
-
     margin-top: 30px;
 
     padding-top: 20px;
 
     border-top:
-        1px solid var(--border);
+        1px solid
+        var(--border);
 
     display: flex;
 
-    justify-content: space-between;
+    justify-content:
+        space-between;
 
-    color: var(--muted);
+    color:
+        var(--muted);
 
     font-size: 12px;
 }
@@ -529,105 +708,111 @@ input[readonly] {
    MOBILE
 ========================= */
 
-@media (max-width: 900px) {
+@media (
+    max-width: 900px
+) {
 
     .grid {
-
-        grid-template-columns: 1fr;
+        grid-template-columns:
+            1fr;
     }
+
 }
 
 
-@media (max-width: 700px) {
+@media (
+    max-width: 700px
+) {
 
     .sidebar {
-
         display: none;
     }
 
 
     .main {
-
         padding: 20px;
     }
 
 
     .header {
-
         display: block;
     }
 
 
     .fixed-row {
+        grid-template-columns:
+            1fr;
+    }
 
-        grid-template-columns: 1fr;
+
+    .actions {
+        grid-template-columns:
+            1fr;
     }
 
 
     .estimation {
-
         margin-top: 12px;
     }
+
+
+    .footer {
+        flex-direction:
+            column;
+
+        gap: 8px;
+    }
+
 }
 
 </style>
-
 </head>
 
 
 <body>
 
-
 <div class="app">
 
 
-<!-- =========================
-     SIDEBAR
-========================= -->
+<!-- SIDEBAR -->
 
 <aside class="sidebar">
 
-
-<!-- REAL JPG LOGO -->
-
 <div class="logo">
 
-    <img
-        src="flywire-white.png"
-        alt="Flywire"
-    >
+<img
+    src="flywire-white.png"
+    alt="Flywire"
+>
 
 </div>
 
 
 <div class="tool">
 
-    ▣ &nbsp; Tools
+▣ &nbsp; Tools
 
 </div>
 
 
 <div class="support">
 
-    <strong>
-        Internal Tool
-    </strong>
+<strong>
+Internal Tool
+</strong>
 
-    <br><br>
+<br><br>
 
-    SBI TCS estimation reference
-    for the team.
+SBI TCS estimation reference
+for the team.
 
 </div>
-
 
 </aside>
 
 
 
-<!-- =========================
-     MAIN
-========================= -->
+<!-- MAIN -->
 
 <main class="main">
 
@@ -636,7 +821,6 @@ input[readonly] {
 
 
 <div>
-
 
 <h1>
 TCS Calculator
@@ -648,7 +832,6 @@ TCS Calculator
 Estimate TCS on SBI overseas education payments using proportional allocation logic.
 
 </div>
-
 
 </div>
 
@@ -667,9 +850,7 @@ Estimate TCS on SBI overseas education payments using proportional allocation lo
 <div class="grid">
 
 
-<!-- =========================
-     INPUT CARD
-========================= -->
+<!-- INPUT CARD -->
 
 <section class="card">
 
@@ -684,9 +865,6 @@ Enter Details
 
 </div>
 
-
-
-<!-- FY + RATE -->
 
 
 <div class="fixed-row">
@@ -725,9 +903,6 @@ Applicable TCS Rate
 
 
 
-<!-- THRESHOLD -->
-
-
 <div class="field">
 
 <label>
@@ -749,9 +924,6 @@ Fixed threshold for FY 2026–27
 
 
 
-<!-- PREVIOUS -->
-
-
 <div class="field">
 
 <label>
@@ -761,31 +933,34 @@ Previous Remittances in this FY
 </label>
 
 
+<div class="input-wrap">
+
 <input
     id="previous"
-    type="number"
-    min="0"
+    type="text"
+    inputmode="numeric"
     value="0"
-    placeholder="0"
+    autocomplete="off"
 >
+
+<span>
+₹
+</span>
+
+</div>
 
 
 <div class="hint">
 
-Total amount already remitted earlier in FY 2026–27
+Total amount already remitted earlier in FY 2026–27.
 
 </div>
 
-
 </div>
 
-
-
-<!-- CURRENT PAYMENT -->
 
 
 <div class="field">
-
 
 <label>
 
@@ -794,24 +969,27 @@ Current Payment Amount
 </label>
 
 
+<div class="input-wrap">
+
 <input
     id="current"
-    type="number"
-    min="0"
+    type="text"
+    inputmode="numeric"
     value="0"
-    placeholder="0"
+    autocomplete="off"
 >
 
+<span>
+₹
+</span>
+
+</div>
 
 </div>
 
 
 
-<!-- LOAN -->
-
-
 <div class="field">
-
 
 <label>
 
@@ -820,24 +998,27 @@ Education Loan Component
 </label>
 
 
+<div class="input-wrap">
+
 <input
     id="loan"
-    type="number"
-    min="0"
+    type="text"
+    inputmode="numeric"
     value="0"
-    placeholder="0"
+    autocomplete="off"
 >
 
+<span>
+₹
+</span>
+
+</div>
 
 </div>
 
 
 
-<!-- AUTO MARGIN -->
-
-
 <div class="field">
-
 
 <label>
 
@@ -848,6 +1029,7 @@ Margin / Own Funds Component
 
 <input
     id="margin"
+    type="text"
     value="₹0"
     readonly
 >
@@ -855,7 +1037,7 @@ Margin / Own Funds Component
 
 <div class="hint">
 
-Automatically calculated:
+Automatically calculated as:
 
 Current Payment − Loan Component
 
@@ -863,22 +1045,24 @@ Current Payment − Loan Component
 
 
 <div
-    id="error"
-    class="error"
+    id="validation"
+    class="validation"
 >
 
-Loan component cannot be higher
-than the current payment.
+Loan component cannot be higher than the current payment amount.
 
 </div>
 
 
 </div>
 
+
+
+<div class="actions">
 
 
 <button
-    class="calculate"
+    class="primary-button"
     onclick="calculateTCS()"
 >
 
@@ -887,8 +1071,18 @@ Calculate TCS
 </button>
 
 
+<button
+    class="secondary-button"
+    onclick="resetCalculator()"
+>
 
-<!-- LOGIC -->
+Reset
+
+</button>
+
+
+</div>
+
 
 
 <div class="logic">
@@ -911,7 +1105,7 @@ Balance Threshold
 ₹10,00,000 − Previous Remittances
 
 
-<br><br>
+<br>
 
 
 Allocation %
@@ -921,7 +1115,7 @@ Allocation %
 Balance Threshold ÷ Current Payment
 
 
-<br><br>
+<br>
 
 
 TCS-Free Margin
@@ -931,7 +1125,7 @@ TCS-Free Margin
 Margin × Allocation %
 
 
-<br><br>
+<br>
 
 
 Taxable Margin
@@ -941,7 +1135,7 @@ Taxable Margin
 Margin − TCS-Free Margin
 
 
-<br><br>
+<br>
 
 
 Estimated TCS
@@ -958,26 +1152,18 @@ Taxable Margin × 2%
 
 
 
-<!-- =========================
-     RESULTS
-========================= -->
-
+<!-- RESULT CARD -->
 
 <section class="card">
 
 
 <div class="section-title">
 
-
 <span class="number">
-
 2
-
 </span>
 
-
 Estimated TCS
-
 
 </div>
 
@@ -1025,11 +1211,15 @@ Calculation Summary
 <div class="row">
 
 <span>
+
 Financial Year
+
 </span>
 
 <strong>
+
 FY 2026–27
+
 </strong>
 
 </div>
@@ -1039,11 +1229,15 @@ FY 2026–27
 <div class="row">
 
 <span>
+
 TCS Rate
+
 </span>
 
 <strong>
+
 2%
+
 </strong>
 
 </div>
@@ -1053,11 +1247,15 @@ TCS Rate
 <div class="row">
 
 <span>
+
 TCS-Free Threshold
+
 </span>
 
 <strong>
+
 ₹10,00,000
+
 </strong>
 
 </div>
@@ -1067,7 +1265,9 @@ TCS-Free Threshold
 <div class="row">
 
 <span>
+
 Previous Remittances
+
 </span>
 
 <strong id="resultPrevious">
@@ -1088,7 +1288,6 @@ Balance TCS-Free Threshold
 
 </span>
 
-
 <strong id="resultBalance">
 
 ₹10,00,000
@@ -1106,7 +1305,6 @@ Balance TCS-Free Threshold
 Current Payment
 
 </span>
-
 
 <strong id="resultCurrent">
 
@@ -1126,7 +1324,6 @@ Education Loan Component
 
 </span>
 
-
 <strong id="resultLoan">
 
 ₹0
@@ -1144,7 +1341,6 @@ Education Loan Component
 Margin / Own Funds
 
 </span>
-
 
 <strong id="resultMargin">
 
@@ -1164,7 +1360,6 @@ Threshold Allocation %
 
 </span>
 
-
 <strong id="resultAllocation">
 
 0.00%
@@ -1182,7 +1377,6 @@ Threshold Allocation %
 TCS-Free Margin Portion
 
 </span>
-
 
 <strong id="resultFree">
 
@@ -1202,7 +1396,6 @@ Taxable Margin Portion
 
 </span>
 
-
 <strong id="resultTaxable">
 
 ₹0
@@ -1218,13 +1411,11 @@ Taxable Margin Portion
     style="border-bottom:none"
 >
 
-
 <strong>
 
 Estimated TCS
 
 </strong>
-
 
 <strong id="resultTCS">
 
@@ -1232,6 +1423,26 @@ Estimated TCS
 
 </strong>
 
+</div>
+
+
+
+<button
+    class="copy-button"
+    onclick="copySummary()"
+>
+
+Copy Calculation Summary
+
+</button>
+
+
+<div
+    id="copySuccess"
+    class="copy-success"
+>
+
+✓ Summary copied
 
 </div>
 
@@ -1239,18 +1450,15 @@ Estimated TCS
 
 <div class="disclaimer">
 
-
 <strong>
-Note:
+Important:
 </strong>
-
 
 This calculator is for estimation/reference only.
 
 The final TCS may vary depending on the individual case and SBI's actual calculation.
 
-Use this as a benchmark for the expected TCS amount.
-
+It should be used as a benchmark to understand the expected TCS amount and not as confirmation of the final amount charged by SBI.
 
 </div>
 
@@ -1291,35 +1499,68 @@ SBI TCS Estimation Tool
 
 
 /* =====================================
-   FIXED FY 2026-27 RULES
+   FIXED FY 2026-27 SETTINGS
 ===================================== */
 
 
-const TCS_THRESHOLD = 1000000;
+const TCS_THRESHOLD =
+    1000000;
 
-const TCS_RATE = 2;
+
+const TCS_RATE =
+    2;
 
 
 
 /* =====================================
-   FORMAT INR
+   CONVERT FORMATTED VALUE TO NUMBER
 ===================================== */
 
 
-function formatINR(amount) {
+function getNumericValue(id) {
 
 
-    amount =
-        Math.max(
-            0,
-            amount
+    const value =
+
+        document
+        .getElementById(id)
+        .value;
+
+
+    const cleanValue =
+
+        String(value)
+        .replace(
+            /[^0-9]/g,
+            ""
         );
 
 
-    return "₹" +
+    return Number(
+        cleanValue
+    ) || 0;
 
-        Math.round(amount)
+}
 
+
+
+/* =====================================
+   FORMAT NUMBER IN INDIAN STYLE
+===================================== */
+
+
+function formatIndianNumber(number) {
+
+
+    const cleanNumber =
+
+        Math.max(
+            0,
+            Math.round(number)
+        );
+
+
+    return cleanNumber
         .toLocaleString(
             "en-IN"
         );
@@ -1329,20 +1570,67 @@ function formatINR(amount) {
 
 
 /* =====================================
-   GET INPUT VALUE
+   FORMAT INR
 ===================================== */
 
 
-function getValue(id) {
+function formatINR(number) {
 
 
-    return Number(
+    return "₹" +
 
-        document
-        .getElementById(id)
+        formatIndianNumber(
+            number
+        );
+
+}
+
+
+
+/* =====================================
+   FORMAT INPUT WHILE TYPING
+===================================== */
+
+
+function formatInputField(element) {
+
+
+    const cleanValue =
+
+        element
         .value
+        .replace(
+            /[^0-9]/g,
+            ""
+        );
 
-    ) || 0;
+
+    if (
+        cleanValue === ""
+    ) {
+
+
+        element.value =
+            "0";
+
+
+        return;
+
+    }
+
+
+    const numberValue =
+
+        Number(
+            cleanValue
+        );
+
+
+    element.value =
+
+        formatIndianNumber(
+            numberValue
+        );
 
 }
 
@@ -1357,54 +1645,57 @@ function calculateTCS() {
 
 
     const previous =
-        getValue(
+
+        getNumericValue(
             "previous"
         );
 
 
     const current =
-        getValue(
+
+        getNumericValue(
             "current"
         );
 
 
     const loan =
-        getValue(
+
+        getNumericValue(
             "loan"
+        );
+
+
+    const validation =
+
+        document
+        .getElementById(
+            "validation"
         );
 
 
 
     /* ==============================
-       AUTO MARGIN
+       VALIDATION
     ============================== */
 
 
     let margin =
-        current -
-        loan;
-
-
-
-    const error =
-        document
-        .getElementById(
-            "error"
-        );
-
+        current - loan;
 
 
     if (
-        loan >
-        current
+        loan > current
     ) {
 
 
-        margin = 0;
-
-
-        error.style.display =
+        validation
+        .style
+        .display =
             "block";
+
+
+        margin =
+            0;
 
 
     }
@@ -1413,7 +1704,9 @@ function calculateTCS() {
     else {
 
 
-        error.style.display =
+        validation
+        .style
+        .display =
             "none";
 
 
@@ -1421,11 +1714,17 @@ function calculateTCS() {
 
 
 
+    /* ==============================
+       AUTO MARGIN
+    ============================== */
+
+
     document
     .getElementById(
         "margin"
     )
     .value =
+
         formatINR(
             margin
         );
@@ -1451,7 +1750,7 @@ function calculateTCS() {
 
 
     /* ==============================
-       SBI PROPORTIONAL ALLOCATION
+       PROPORTIONAL ALLOCATION
     ============================== */
 
 
@@ -1459,10 +1758,8 @@ function calculateTCS() {
         0;
 
 
-
     if (
-        current >
-        0
+        current > 0
     ) {
 
 
@@ -1496,7 +1793,7 @@ function calculateTCS() {
 
 
     /* ==============================
-       TCS FREE MARGIN
+       TCS-FREE MARGIN
     ============================== */
 
 
@@ -1528,7 +1825,7 @@ function calculateTCS() {
 
 
     /* ==============================
-       TCS @ 2%
+       ESTIMATED TCS
     ============================== */
 
 
@@ -1544,7 +1841,7 @@ function calculateTCS() {
 
 
     /* ==============================
-       DISPLAY
+       DISPLAY RESULTS
     ============================== */
 
 
@@ -1630,7 +1927,6 @@ function calculateTCS() {
             allocation *
             100
         )
-
         .toFixed(2)
 
         + "%";
@@ -1676,7 +1972,7 @@ function calculateTCS() {
 
 
 /* =====================================
-   AUTO CALCULATE
+   AUTO FORMAT + AUTO CALCULATE
 ===================================== */
 
 
@@ -1691,13 +1987,29 @@ function calculateTCS() {
     function(id) {
 
 
-        document
-        .getElementById(id)
+        const element =
+
+            document
+            .getElementById(id);
+
+
+
+        element
         .addEventListener(
 
             "input",
 
-            calculateTCS
+            function() {
+
+
+                formatInputField(
+                    element
+                );
+
+
+                calculateTCS();
+
+            }
 
         );
 
@@ -1705,6 +2017,217 @@ function calculateTCS() {
     }
 
 );
+
+
+
+/* =====================================
+   RESET
+===================================== */
+
+
+function resetCalculator() {
+
+
+    document
+    .getElementById(
+        "previous"
+    )
+    .value =
+        "0";
+
+
+    document
+    .getElementById(
+        "current"
+    )
+    .value =
+        "0";
+
+
+    document
+    .getElementById(
+        "loan"
+    )
+    .value =
+        "0";
+
+
+    document
+    .getElementById(
+        "copySuccess"
+    )
+    .style
+    .display =
+        "none";
+
+
+    calculateTCS();
+
+}
+
+
+
+/* =====================================
+   COPY SUMMARY
+===================================== */
+
+
+function copySummary() {
+
+
+    const previous =
+
+        document
+        .getElementById(
+            "resultPrevious"
+        )
+        .textContent;
+
+
+    const balance =
+
+        document
+        .getElementById(
+            "resultBalance"
+        )
+        .textContent;
+
+
+    const current =
+
+        document
+        .getElementById(
+            "resultCurrent"
+        )
+        .textContent;
+
+
+    const loan =
+
+        document
+        .getElementById(
+            "resultLoan"
+        )
+        .textContent;
+
+
+    const margin =
+
+        document
+        .getElementById(
+            "resultMargin"
+        )
+        .textContent;
+
+
+    const allocation =
+
+        document
+        .getElementById(
+            "resultAllocation"
+        )
+        .textContent;
+
+
+    const freeMargin =
+
+        document
+        .getElementById(
+            "resultFree"
+        )
+        .textContent;
+
+
+    const taxableMargin =
+
+        document
+        .getElementById(
+            "resultTaxable"
+        )
+        .textContent;
+
+
+    const tcs =
+
+        document
+        .getElementById(
+            "resultTCS"
+        )
+        .textContent;
+
+
+
+    const summary =
+
+`SBI TCS Estimate
+
+FY: 2026–27
+TCS Rate: 2%
+TCS-Free Threshold: ₹10,00,000
+
+Previous Remittances: ${previous}
+Balance Threshold: ${balance}
+
+Current Payment: ${current}
+Loan Component: ${loan}
+Margin / Own Funds: ${margin}
+
+Allocation: ${allocation}
+TCS-Free Margin: ${freeMargin}
+Taxable Margin: ${taxableMargin}
+
+Estimated TCS: ${tcs}
+
+Estimation only. Final TCS is subject to SBI's actual calculation.`;
+
+
+
+    navigator
+    .clipboard
+    .writeText(
+        summary
+    )
+    .then(
+
+        function() {
+
+
+            const success =
+
+                document
+                .getElementById(
+                    "copySuccess"
+                );
+
+
+            success
+            .style
+            .display =
+                "block";
+
+
+            setTimeout(
+
+                function() {
+
+
+                    success
+                    .style
+                    .display =
+                        "none";
+
+
+                },
+
+                2500
+
+            );
+
+        }
+
+    );
+
+}
 
 
 
@@ -1723,7 +2246,8 @@ function updateDateTime() {
 
     const date =
 
-        now.toLocaleDateString(
+        now
+        .toLocaleDateString(
 
             "en-IN",
 
@@ -1749,7 +2273,8 @@ function updateDateTime() {
 
     const time =
 
-        now.toLocaleTimeString(
+        now
+        .toLocaleTimeString(
 
             "en-IN",
 
@@ -1795,11 +2320,11 @@ function updateDateTime() {
 
 
 /* =====================================
-   INITIALIZE
+   PAGE START
 ===================================== */
 
 
-calculateTCS();
+resetCalculator();
 
 
 updateDateTime();
